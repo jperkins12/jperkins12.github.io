@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jamie Perkins — Sr. Data Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:          #f9f8f6;
+      --bg2:         #ffffff;
+      --bg3:         #f2f1ef;
+      --border:      #e4e2de;
+      --border2:     #ccc9c3;
+      --accent:      #1a6b45;
+      --accent-light:#e8f5ef;
+      --accent-mid:  #2e9e68;
+      --blue:        #2563a8;
+      --blue-light:  #e8f0fb;
+      --muted:       #9e9b95;
+      --text:        #2c2b28;
+      --text-dim:    #6b6860;
+      --text-bright: #111110;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14.5px;
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Faint ruled lines for texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(0,0,0,0.018) 1px, transparent 1px);
+      background-size: 100% 28px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(249,248,246,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 56px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 1; }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── LAYOUT ── */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 100px 2rem 4rem;
+    }
+
+    section { margin-bottom: 5rem; }
+
+    /* ── SECTION HEADERS ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .section-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      padding-top: 2rem;
+      margin-bottom: 5rem;
+    }
+
+    .hero-prompt {
+      color: var(--accent-mid);
+      font-size: 0.75rem;
+      margin-bottom: 1rem;
+      opacity: 0.7;
+    }
+
+    .hero-prompt::before { content: '> '; }
+
+    .hero-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900;
+      color: var(--text-bright);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-name .accent { color: var(--accent); }
+
+    .hero-title {
+      font-size: 0.85rem;
+      color: var(--blue);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-bio {
+      max-width: 560px;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      line-height: 1.9;
+      margin-bottom: 2rem;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.18s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: #155c3a;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(26,107,69,0.2);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-dim);
+      border: 1px solid var(--border2);
+    }
+
+    .btn-outline:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.8rem;
+      background: var(--accent-light);
+      border: 1px solid #b8dece;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .status-dot {
+      width: 7px; height: 7px;
+      background: var(--accent-mid);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-group {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.2rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .skill-group:hover {
+      border-color: var(--border2);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .skill-group-title {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.8rem;
+    }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+    .tag {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      transition: all 0.15s;
+    }
+
+    .skill-group:hover .tag {
+      color: var(--text);
+      border-color: var(--border2);
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-item {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .exp-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: -2rem;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .exp-item:last-child::before { display: none; }
+
+    .exp-item::after {
+      content: '';
+      position: absolute;
+      left: -3px; top: 8px;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--bg2);
+      border: 1.5px solid var(--accent-mid);
+    }
+
+    .exp-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .exp-company {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-bright);
+    }
+
+    .exp-role {
+      color: var(--blue);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+    }
+
+    .exp-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .exp-bullets { list-style: none; padding: 0; }
+
+    .exp-bullets li {
+      position: relative;
+      padding-left: 1.2rem;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .exp-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--border2);
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.4rem;
+      text-decoration: none;
+      display: block;
+      transition: all 0.22s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--blue));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    }
+
+    .project-card:hover::after { transform: scaleX(1); }
+
+    .project-icon { font-size: 1.4rem; margin-bottom: 0.8rem; }
+
+    .project-name {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-bright);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+    .project-tag {
+      font-size: 0.65rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      border: 1px solid #b8dece;
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .project-link-hint {
+      margin-top: 1rem;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .project-link-hint::before { content: '→ '; }
+
+    /* ── EDUCATION ── */
+    .edu-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 0.8rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .edu-item:hover {
+      border-color: var(--border2);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    .edu-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .edu-degree {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-bright);
+    }
+
+    .edu-year { font-size: 0.7rem; color: var(--muted); }
+
+    .edu-school {
+      font-size: 0.75rem;
+      color: var(--blue);
+      margin-bottom: 0.4rem;
+    }
+
+    .edu-note {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    /* ── PUBLICATIONS ── */
+    .pub-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--border2);
+      border-radius: 0 6px 6px 0;
+      padding: 1rem 1.2rem;
+      margin-bottom: 0.8rem;
+      transition: border-color 0.2s;
+    }
+
+    .pub-item:hover {
+      border-color: var(--border2);
+      border-left-color: var(--blue);
+    }
+
+    .pub-title {
+      font-size: 0.8rem;
+      color: var(--text-bright);
+      margin-bottom: 0.3rem;
+      line-height: 1.5;
+    }
+
+    .pub-meta { font-size: 0.7rem; color: var(--text-dim); }
+    .pub-meta .pub-journal { color: var(--blue); font-style: italic; }
+
+    /* ── CONTACT ── */
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .contact-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.75rem;
+      transition: all 0.18s;
+    }
+
+    .contact-item:hover {
+      color: var(--accent);
+      border-color: #b8dece;
+      background: var(--accent-light);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    footer span { color: var(--accent); }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+      main { padding: 80px 1rem 3rem; }
+      .hero-name { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">
+      <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Data pipeline icon">
+        <rect x="0" y="10" width="7" height="7" rx="1.5" fill="none" stroke="var(--accent-mid)" stroke-width="1.5"/>
+        <rect x="12.5" y="0.75" width="7" height="7" rx="1.5" fill="none" stroke="var(--blue)" stroke-width="1.5"/>
+        <rect x="12.5" y="19.25" width="7" height="7" rx="1.5" fill="none" stroke="var(--blue)" stroke-width="1.5"/>
+        <rect x="25" y="10" width="7" height="7" rx="1.5" fill="none" stroke="var(--accent-mid)" stroke-width="1.5"/>
+        <line x1="7" y1="13.5" x2="12.5" y2="4.25" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="7" y1="14.5" x2="12.5" y2="22.75" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="19.5" y1="4.25" x2="25" y2="13.5" stroke="var(--border2)" stroke-width="1.2"/>
+        <line x1="19.5" y1="22.75" x2="25" y2="14.5" stroke="var(--border2)" stroke-width="1.2"/>
+        <circle cx="9.75" cy="8.6" r="1.2" fill="var(--border2)"/>
+        <circle cx="9.75" cy="19.4" r="1.2" fill="var(--border2)"/>
+        <circle cx="22.25" cy="8.6" r="1.2" fill="var(--border2)"/>
+        <circle cx="22.25" cy="19.4" r="1.2" fill="var(--border2)"/>
+      </svg>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#publications">research</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="status-badge">
+        <div class="status-dot"></div>
+        Available for opportunities
+      </div>
+      <p class="hero-prompt">whoami</p>
+      <h1 class="hero-name">Jamie<br /><span class="accent">Perkins</span></h1>
+      <p class="hero-title">// Senior Data Engineer</p>
+      <p class="hero-bio">
+        8 years delivering production-grade data pipelines, event-driven applications,
+        and APIs at scale. Experienced in application design with a track record of
+        improving engineering workflows to boost team productivity.
+      </p>
+      <div class="hero-links">
+        <a class="btn btn-primary" href="https://github.com/jperkins12" target="_blank" rel="noopener">⌥ GitHub</a>
+        <a class="btn btn-outline" href="https://www.linkedin.com/in/jamie-a-perkins/" target="_blank" rel="noopener">↗ LinkedIn</a>
+        <a class="btn btn-outline" href="mailto:japrkns@gmail.com">✉ Email</a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="fade-in">
+      <div class="section-header"><h2>about</h2></div>
+      <p style="color:var(--text-dim); font-size:0.85rem; max-width:640px; line-height:1.9;">
+        I'm a Senior Data Engineer based in Herndon, VA, specialising in building robust,
+        scalable data infrastructure on AWS. My background spans GIS engineering at Apple,
+        cloud-native pipelines at Capital One, and academic research in remote sensing and
+        forest biomass modelling — giving me an unusual mix of spatial data expertise,
+        software engineering rigour, and scientific thinking.
+        <br /><br />
+        Outside of production systems, I enjoy working on open-source tools at the
+        intersection of geospatial data and software engineering.
+      </p>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="fade-in">
+      <div class="section-header"><h2>skills</h2></div>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group-title">Languages</div>
+          <div class="skill-tags">
+            <span class="tag">Python</span><span class="tag">Scala</span>
+            <span class="tag">SQL</span><span class="tag">TypeScript</span>
+            <span class="tag">JavaScript</span><span class="tag">Go</span><span class="tag">R</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Data Tools</div>
+          <div class="skill-tags">
+            <span class="tag">PostgreSQL</span><span class="tag">PostGIS</span>
+            <span class="tag">Spark</span><span class="tag">Hadoop</span>
+            <span class="tag">Hive</span><span class="tag">Snowflake</span>
+            <span class="tag">Databricks</span><span class="tag">Tableau</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">AWS</div>
+          <div class="skill-tags">
+            <span class="tag">Lambda</span><span class="tag">Fargate</span>
+            <span class="tag">EMR</span><span class="tag">Step Functions</span>
+            <span class="tag">SQS</span><span class="tag">SNS</span>
+            <span class="tag">S3</span><span class="tag">CDK</span><span class="tag">Route 53</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">DevOps & Tooling</div>
+          <div class="skill-tags">
+            <span class="tag">Git</span><span class="tag">Jenkins</span>
+            <span class="tag">New Relic</span><span class="tag">Splunk</span>
+            <span class="tag">Agile</span><span class="tag">GitHub Copilot</span>
+            <span class="tag">Windsurf</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="fade-in">
+      <div class="section-header"><h2>experience</h2></div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-company">Capital One</span>
+          <span class="exp-role">Sr. Data Engineer</span>
+        </div>
+        <div class="exp-meta"><span>Jan 2024 – Present</span><span>Tysons, VA</span></div>
+        <ul class="exp-bullets">
+          <li>Drove cross-team collaboration to align on technical solutions, unblocking stalled work and restoring delivery momentum.</li>
+          <li>Led application design and presented to leadership to advocate for project approval.</li>
+          <li>Defined data models and contracts to reduce ambiguity and ensure reliable integration across application components.</li>
+          <li>Deployed and maintained applications on AWS including batch data pipelines, event-driven systems, and APIs.</li>
+          <li>Orchestrated cloud deployments using infrastructure-as-code (AWS CDK), simplifying application rollouts and reducing time to production.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-company">Apple Inc.</span>
+          <span class="exp-role">Sr. GIS Engineer</span>
+        </div>
+        <div class="exp-meta"><span>May 2021 – Jan 2024</span><span>Cupertino, CA</span></div>
+        <ul class="exp-bullets">
+          <li>Partnered with globally distributed engineering teams to deliver reliable production data pipelines under tight timelines.</li>
+          <li>Directed and trained a contracted engineering team on internal tooling, processes, and quality standards, enabling on-time delivery while reducing overtime costs.</li>
+          <li>Refactored workflows to improve throughput and reduce rework, improving delivery consistency.</li>
+          <li>Applied Agile delivery practices to coordinate work, manage dependencies, and keep deliverables on track.</li>
+          <li>Built high-volume data processing pipelines using Scala and Apache Spark.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-company">Apple Inc.</span>
+          <span class="exp-role">GIS Technician</span>
+        </div>
+        <div class="exp-meta"><span>Jun 2018 – May 2021</span><span>Cupertino, CA</span></div>
+        <ul class="exp-bullets">
+          <li>Performed statistical validation of data pipeline outputs using R and Python to ensure data quality and reliability.</li>
+          <li>Developed interactive Tableau dashboards to surface insights and enable data-driven decision-making for stakeholders.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-company">Boston University</span>
+          <span class="exp-role">Visiting Research Fellow</span>
+        </div>
+        <div class="exp-meta"><span>Jun 2013 – Aug 2014</span><span>Boston, MA</span></div>
+        <ul class="exp-bullets">
+          <li>Participated in LandTrendr, a project that analysed land use change using Landsat imagery.</li>
+          <li>Utilised a Landsat time series dataset with observations spanning three decades.</li>
+          <li>Processed remotely sensed imagery using Python and ENVI.</li>
+          <li>Managed a dataset consisting of thousands of images in a Unix cluster.</li>
+          <li>Developed Python scripts to monitor project status and automate processing pipelines.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="fade-in">
+      <div class="section-header"><h2>projects</h2></div>
+      <div class="projects-grid">
+
+        <a class="project-card" href="https://github.com/jperkins12/padus-land-interactions" target="_blank" rel="noopener">
+          <div class="project-icon">🗺️</div>
+          <div class="project-name">PADUS-Land-Interactions</div>
+          <div class="project-desc">Example API that allows a user to query the National Protected Areas Database (PADUS) against an area of interest.</div>
+          <div class="project-tags">
+            <span class="project-tag">Python</span><span class="project-tag">PostGIS</span>
+            <span class="project-tag">REST API</span><span class="project-tag">Geospatial</span>
+          </div>
+          <div class="project-link-hint">github.com/jperkins12/padus-land-interactions</div>
+        </a>
+
+        <a class="project-card" href="https://github.com/jperkins12/data-ingest-demo" target="_blank" rel="noopener">
+          <div class="project-icon">🐘</div>
+          <div class="project-name">Data-Ingest-Demo</div>
+          <div class="project-desc">Sample data ingest workflow that imports data from Kaggle into a containerised Postgres instance, demonstrating an end-to-end pipeline.</div>
+          <div class="project-tags">
+            <span class="project-tag">Python</span><span class="project-tag">PostgreSQL</span>
+            <span class="project-tag">Docker</span><span class="project-tag">ETL</span>
+          </div>
+          <div class="project-link-hint">github.com/jperkins12/data-ingest-demo</div>
+        </a>
+
+        <a class="project-card" href="https://github.com/jperkins12/TreeFindr" target="_blank" rel="noopener">
+          <div class="project-icon">🌲</div>
+          <div class="project-name">TreeFindr</div>
+          <div class="project-desc">QGIS processing chain in Python for isolating individual tree crowns from DSM raster images using spatial analysis techniques.</div>
+          <div class="project-tags">
+            <span class="project-tag">Python</span><span class="project-tag">QGIS</span>
+            <span class="project-tag">Raster</span><span class="project-tag">GIS</span>
+          </div>
+          <div class="project-link-hint">github.com/jperkins12/TreeFindr</div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="fade-in">
+      <div class="section-header"><h2>education</h2></div>
+
+      <div class="edu-item">
+        <div class="edu-header">
+          <span class="edu-degree">M.S. Forestry</span>
+          <span class="edu-year">2019</span>
+        </div>
+        <div class="edu-school">University of New Hampshire</div>
+        <div class="edu-note">Thesis: "Measuring, Modeling, and Evaluating the Spatial Properties of Northeast Oregon Forests Using Unmanned Aerial Systems"</div>
+        <div class="edu-note" style="margin-top:0.3rem;">🏆 Forestry Student of the Year — Society of American Foresters, Granite State Division (2016)</div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-header">
+          <span class="edu-degree">B.A. Environmental Science</span>
+          <span class="edu-year">2013</span>
+        </div>
+        <div class="edu-school">Boston University</div>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications" class="fade-in">
+      <div class="section-header"><h2>research</h2></div>
+
+      <div class="pub-item">
+        <div class="pub-title">Measuring, Modeling, and Evaluating the Spatial Properties of Northeast Oregon Forests Using Unmanned Aerial Systems</div>
+        <div class="pub-meta">Perkins, J. (2019). <span class="pub-journal">Master's Dissertation, University of New Hampshire.</span></div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">An empirical, integrated forest biomass monitoring system</div>
+        <div class="pub-meta">Kennedy, R.E. et al. (2018). <span class="pub-journal">Environmental Research Letters, 13(2), p.025004.</span></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="fade-in">
+      <div class="section-header"><h2>contact</h2></div>
+      <p style="color:var(--text-dim); font-size:0.82rem; margin-bottom:0.5rem;">
+        Open to interesting problems in data engineering, geospatial systems, and cloud infrastructure.
+      </p>
+      <div class="contact-row">
+        <a class="contact-item" href="mailto:japrkns@gmail.com">✉ japrkns@gmail.com</a>
+        <a class="contact-item" href="https://www.linkedin.com/in/jamie-a-perkins/" target="_blank" rel="noopener">↗ LinkedIn</a>
+        <a class="contact-item" href="https://github.com/jperkins12" target="_blank" rel="noopener">⌥ GitHub</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>Jamie Perkins</span> &nbsp;·&nbsp; Sr. Data Engineer &nbsp;·&nbsp; Herndon, VA &nbsp;·&nbsp; Built with HTML/CSS
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--accent)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
